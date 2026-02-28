@@ -30,11 +30,13 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 sticky top-0 z-40">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        <div class="flex items-center gap-3">
-                            <div class="w-1.5 h-6 bg-indigo-600 rounded-full"></div>
-                            {{ $header }}
+                <header class="bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg border-b border-gray-100 dark:border-gray-800 sticky top-0 z-40 shadow-sm">
+                    <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+                        <div class="flex items-center justify-center">
+                            <div class="flex items-center gap-3">
+                                <div class="w-1.5 h-6 bg-gradient-to-b from-indigo-600 to-purple-600 rounded-full"></div>
+                                {{ $header }}
+                            </div>
                         </div>
                     </div>
                 </header>

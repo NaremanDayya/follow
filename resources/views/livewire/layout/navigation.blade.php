@@ -34,7 +34,7 @@ new class extends Component
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-1 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-1 sm:-my-px sm:ms-10 sm:flex items-center justify-center flex-1">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
                         {{ 'لوحة التحكم' }}
                     </x-nav-link>
@@ -43,11 +43,9 @@ new class extends Component
                         {{ 'العملاء' }}
                     </x-nav-link>
 
-                    @if(auth()->user()->isAdmin())
-                    <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')" wire:navigate>
-                        {{ 'المشاريع' }}
+                    <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.*')" wire:navigate>
+                        {{ 'المحادثات' }}
                     </x-nav-link>
-                    @endif
 
                     <x-nav-link :href="route('reports.dashboard')" :active="request()->routeIs('reports.*')" wire:navigate>
                         {{ 'التقارير' }}

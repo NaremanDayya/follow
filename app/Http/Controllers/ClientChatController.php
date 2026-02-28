@@ -12,7 +12,33 @@ use Illuminate\Support\Facades\DB;
 
 class ClientChatController extends Controller
 {
-    public function index(Client $client)
+    public function index()
+    {
+        // Get all clients with chat information for the chat list
+        $clients = Client::with(['assignedEmployee', 'lastMessage'])
+            ->whereHas('chatMessages')
+            ->orWhereHas('assignedEmployee', function($query) {
+                $query->where('id', Auth::id());
+            })
+            ->orWhere('created_by', Auth::id())
+            ->get()
+            ->map(function ($client) {
+                $client->unread_count = $client->unreadMessages()
+                    ->where('sender_id', '!=', Auth::id())
+                    ->count();
+                $client->last_message = $client->chatMessages()
+                    ->latest()
+                    ->first()?->message;
+                $client->last_message_at = $client->chatMessages()
+                    ->latest()
+                    ->first()?->created_at;
+                return $client;
+            });
+
+        return view('chat.index', compact('clients'));
+    }
+
+    public function show(Client $client)
     {
         $this->authorize('view', $client);
 

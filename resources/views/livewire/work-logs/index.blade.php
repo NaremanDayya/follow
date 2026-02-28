@@ -1,15 +1,12 @@
 <?php
 
 use App\Models\DailyLog;
-use App\Models\Project;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
 
 new class extends Component
 {
-    public $projects;
     public $date;
-    public $project_id;
     public $title;
     public $description;
     public $hours;
@@ -17,14 +14,12 @@ new class extends Component
 
     public function mount()
     {
-        $this->projects = Project::all();
         $this->date = now()->format('Y-m-d');
     }
 
     public function save()
     {
         $this->validate([
-            'project_id' => 'required|exists:projects,id',
             'date' => 'required|date',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -34,7 +29,6 @@ new class extends Component
 
         DailyLog::create([
             'user_id' => Auth::id(),
-            'project_id' => $this->project_id,
             'date' => $this->date,
             'title' => $this->title,
             'description' => $this->description,
@@ -42,7 +36,7 @@ new class extends Component
             'status' => $this->status,
         ]);
 
-        $this->reset(['project_id', 'title', 'description', 'hours', 'status']);
+        $this->reset(['title', 'description', 'hours', 'status']);
         $this->dispatch('log-added');
     }
 
@@ -51,7 +45,7 @@ new class extends Component
         return [
             'logs' => DailyLog::where('user_id', Auth::id())
                 ->where('date', $this->date)
-                ->with('project', 'comments.admin')
+                ->with('comments.admin')
                 ->latest()
                 ->get(),
         ];
@@ -83,17 +77,6 @@ new class extends Component
                 </div>
 
                 <form wire:submit="save" class="space-y-5">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">المشروع</label>
-                        <select wire:model="project_id" class="block w-full px-5 py-4 bg-gray-50 dark:bg-gray-900 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 text-sm font-bold transition">
-                            <option value="">اختر المشروع...</option>
-                            @foreach($projects as $project)
-                                <option value="{{ $project->id }}">{{ $project->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('project_id') <span class="text-red-500 text-[10px] mt-1">{{ $message }}</span> @enderror
-                    </div>
-
                     <div>
                         <label class="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">عنوان المهمة</label>
                         <input type="text" wire:model="title" placeholder="ماذا فعلت؟" class="block w-full px-5 py-4 bg-gray-50 dark:bg-gray-900 border-gray-100 dark:border-gray-700 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 text-sm font-bold transition">
@@ -148,9 +131,6 @@ new class extends Component
                         <div class="flex flex-col md:flex-row md:items-start justify-between gap-6">
                             <div class="flex-grow">
                                 <div class="flex items-center gap-2 mb-2">
-                                    <span class="text-[10px] font-black uppercase tracking-widest px-2 py-0.5 bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 rounded-md">
-                                        {{ $log->project->name }}
-                                    </span>
                                     <span class="text-xs font-bold text-gray-400">
                                         {{ $log->created_at->format('h:i A') }}
                                     </span>

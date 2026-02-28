@@ -18,7 +18,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/clients/{client}', [App\Http\Controllers\ClientController::class, 'destroy'])->name('clients.destroy');
     
     // Client Chat Routes
-    Route::get('/clients/{client}/chat', [App\Http\Controllers\ClientChatController::class, 'index'])->name('clients.chat');
+    Route::get('/chat', [App\Http\Controllers\ClientChatController::class, 'index'])->name('chat.index');
+    Route::get('/clients/{client}/chat', [App\Http\Controllers\ClientChatController::class, 'show'])->name('clients.chat');
     Route::post('/clients/{client}/chat', [App\Http\Controllers\ClientChatController::class, 'store'])->name('clients.chat.store');
     Route::post('/clients/{client}/chat/mark-read', [App\Http\Controllers\ClientChatController::class, 'markAsRead'])->name('clients.chat.mark-read');
     Route::get('/clients/{client}/chat/unread-count', [App\Http\Controllers\ClientChatController::class, 'getUnreadCount'])->name('clients.chat.unread-count');
@@ -47,9 +48,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // AJAX Routes for real-time updates
     Route::post('/clients/update-late-statuses', [App\Http\Controllers\ClientController::class, 'updateLateStatuses'])->name('clients.update-late-statuses');
     Route::post('/clients/{client}/mark-messages-read', [App\Http\Controllers\ClientController::class, 'markMessagesAsRead'])->name('clients.mark-messages-read');
-
-    // Legacy routes (can be removed later)
-    Route::view('projects', 'projects')->name('projects');
 });
 
 require __DIR__.'/auth.php';

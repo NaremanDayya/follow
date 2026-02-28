@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\DailyLog;
-use App\Models\Project;
 use App\Models\Comment;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +9,6 @@ use Livewire\Attributes\On;
 new class extends Component
 {
     public $date;
-    public $selectedProject = '';
     public $commentTexts = [];
 
     public function mount()
@@ -43,18 +41,13 @@ new class extends Component
 
     public function with()
     {
-        $query = DailyLog::with(['user', 'project', 'comments.admin'])
-            ->where('date', $this->date);
-
-        if ($this->selectedProject) {
-            $query->where('project_id', $this->selectedProject);
-        }
-
-        $logs = $query->latest()->get();
+        $logs = DailyLog::with(['user', 'comments.admin'])
+            ->where('date', $this->date)
+            ->latest()
+            ->get();
 
         return [
             'logs' => $logs,
-            'projects' => Project::all(),
             'totalHours' => $logs->sum('hours'),
             'completedCount' => $logs->where('status', 'done')->count(),
             'uniqueDevelopers' => $logs->pluck('user_id')->unique()->count(),
@@ -68,19 +61,7 @@ new class extends Component
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
                 <h2 class="text-3xl font-black text-gray-900 dark:text-white">لوحة تحكم الإدارة</h2>
-                <p class="text-gray-500 mt-2 font-medium">مراقبة تقدم الفريق والمشاريع</p>
-            </div>
-            
-            <div class="flex flex-wrap items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <div class="flex items-center gap-2 px-3">
-                    <span class="text-xs font-black text-gray-400">المشروع:</span>
-                    <select wire:model.live="selectedProject" class="bg-transparent border-none focus:ring-0 text-sm font-bold text-indigo-600">
-                        <option value="">كل المشاريع</option>
-                        @foreach($projects as $project)
-                            <option value="{{ $project->id }}">{{ $project->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                <p class="text-gray-500 mt-2 font-medium">مراقبة تقدم الفريق</p>
             </div>
         </div>
 
@@ -136,10 +117,6 @@ new class extends Component
                             </div>
                             <h4 class="text-lg font-black text-gray-900 dark:text-white">{{ $log->user->name }}</h4>
                             <span class="text-xs font-bold text-gray-400">{{ $log->user->email }}</span>
-                            
-                            <div class="mt-4 px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 rounded-full text-[10px] font-black uppercase">
-                                {{ $log->project->name }}
-                            </div>
                         </div>
 
                         <!-- Content -->
