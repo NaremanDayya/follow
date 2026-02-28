@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'آفاق داشبورد') }}</title>
+        <title>{{ config('app.name', 'نظام متابعة العملاء') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +34,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                         </svg>
                     </div>
-                    <span class="text-3xl font-black tracking-tight text-gray-900 dark:text-white">آفاق <span class="text-indigo-600">داشبورد</span></span>
+                    <span class="text-3xl font-black tracking-tight text-gray-900 dark:text-white">نظام <span class="text-indigo-600">متابعة العملاء</span></span>
                 </a>
             </div>
 
@@ -46,7 +46,7 @@
             </div>
             
             <div class="mt-8 text-sm text-gray-500 text-center">
-                &copy; {{ date('Y') }} آفاق داشبورد. جميع الحقوق محفوظة.
+                &copy; {{ date('Y') }} نظام متابعة العملاء. جميع الحقوق محفوظة.
             </div>
         </div>
     </body>
