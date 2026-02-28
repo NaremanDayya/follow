@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'آفاق داشبورد') }}</title>
+        <title>{{ config('app.name', 'نظام متابعة العملاء') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,8 +19,8 @@
                 font-family: 'Cairo', sans-serif;
             }
             .dashboard-bg {
-                background: radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.04) 0%, transparent 40%),
-                            radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.04) 0%, transparent 40%);
+                background: radial-gradient(circle at 100% 0%, rgba(79, 70, 229, 0.03) 0%, transparent 40%),
+                            radial-gradient(circle at 0% 100%, rgba(168, 85, 247, 0.03) 0%, transparent 40%);
             }
         </style>
     </head>
