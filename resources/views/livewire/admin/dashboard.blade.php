@@ -5,6 +5,7 @@ use App\Models\Project;
 use App\Models\Comment;
 use Livewire\Volt\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\On;
 
 new class extends Component
 {
@@ -15,6 +16,12 @@ new class extends Component
     public function mount()
     {
         $this->date = now()->format('Y-m-d');
+    }
+
+    #[On('dateSelected')]
+    public function updateDate($date)
+    {
+        $this->date = $date;
     }
 
     public function addComment($logId)
@@ -61,14 +68,10 @@ new class extends Component
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
                 <h2 class="text-3xl font-black text-gray-900 dark:text-white">لوحة تحكم الإدارة</h2>
-                <p class="text-gray-500 mt-2 font-medium">مراقبة تقدم الفريق والمشاريع لليوم</p>
+                <p class="text-gray-500 mt-2 font-medium">مراقبة تقدم الفريق والمشاريع</p>
             </div>
             
             <div class="flex flex-wrap items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-3xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <div class="flex items-center gap-2 px-3 border-l border-gray-100 dark:border-gray-700">
-                    <span class="text-xs font-black text-gray-400">التاريخ:</span>
-                    <input type="date" wire:model.live="date" class="bg-transparent border-none focus:ring-0 text-sm font-bold text-indigo-600">
-                </div>
                 <div class="flex items-center gap-2 px-3">
                     <span class="text-xs font-black text-gray-400">المشروع:</span>
                     <select wire:model.live="selectedProject" class="bg-transparent border-none focus:ring-0 text-sm font-bold text-indigo-600">
@@ -80,6 +83,9 @@ new class extends Component
                 </div>
             </div>
         </div>
+
+        <!-- Monthly Agenda -->
+        <livewire:admin.agenda />
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Stat Card 1 -->
