@@ -110,11 +110,6 @@ new class extends Component
                 {{ 'العملاء' }}
             </x-responsive-nav-link>
 
-            @if(auth()->user()->isAdmin())
-            <x-responsive-nav-link :href="route('projects')" :active="request()->routeIs('projects')" wire:navigate>
-                {{ 'المشاريع' }}
-            </x-responsive-nav-link>
-            @endif
 
             <x-responsive-nav-link :href="route('reports.dashboard')" :active="request()->routeIs('reports.*')" wire:navigate>
                 {{ 'التقارير' }}
