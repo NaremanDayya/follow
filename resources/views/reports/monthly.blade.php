@@ -1,53 +1,61 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="space-y-6">
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 class="h3 mb-0">Monthly Reports</h1>
-            <p class="text-muted mb-0">Client contact analysis and follow-up tracking</p>
-        </div>
-        <div class="d-flex gap-2 align-items-center">
-            <input type="month" class="form-control" id="monthSelector" value="{{ $month }}" onchange="changeMonth()">
-            <button type="button" class="btn btn-outline-primary" onclick="exportReport()">
-                <i class="fas fa-download me-2"></i>Export
-            </button>
-            <a href="{{ route('reports.dashboard') }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
-            </a>
+    <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-black text-gray-900 dark:text-white">التقارير الشهرية</h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">تحليل تواصل العملاء وتتبع المتابعات</p>
+            </div>
+            <div class="flex items-center gap-3">
+                <input type="month" class="px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" id="monthSelector" value="{{ $month }}" onchange="changeMonth()">
+                <button type="button" class="inline-flex items-center px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-colors duration-200" onclick="exportReport()">
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0v-6h6m0 0v-6h-6m-11 7h18" />
+                    </svg>
+                    تصدير
+                </button>
+                <a href="{{ route('reports.dashboard') }}" class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors duration-200">
+                    <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m14 14l-7-7m-14 14l7-7m-7 7l-7 7" />
+                    </svg>
+                    العودة للوحة التحكم
+                </a>
+            </div>
         </div>
     </div>
 
     <!-- Month Summary -->
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-calendar-alt text-primary me-2"></i>
-                            {{ $date->format('F Y') }} Summary
-                        </h5>
-                        <div class="d-flex gap-3">
-                            <div class="text-center">
-                                <h4 class="mb-0 text-primary">{{ count($reports) }}</h4>
-                                <small class="text-muted">Total Clients</small>
-                            </div>
-                            <div class="text-center">
-                                <h4 class="mb-0 text-success">{{ collect($reports)->sum('total_updates') }}</h4>
-                                <small class="text-muted">Total Updates</small>
-                            </div>
-                            <div class="text-center">
-                                <h4 class="mb-0 text-info">{{ collect($reports)->sum('contact_days') }}</h4>
-                                <small class="text-muted">Contact Days</small>
-                            </div>
-                            <div class="text-center">
-                                <h4 class="mb-0 text-warning">{{ collect($reports)->sum('late_days') }}</h4>
-                                <small class="text-muted">Late Days</small>
-                            </div>
-                        </div>
-                    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                <svg class="w-5 h-5 inline ml-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                {{ $date->format('F Y') }} ملخص
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <h4 class="text-2xl font-bold text-indigo-600">{{ count($reports) }}</h4>
+                    <small class="text-gray-500 dark:text-gray-400">إجمالي العملاء</small>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-2xl font-bold text-green-600">{{ collect($reports)->sum('total_updates') }}</h4>
+                    <small class="text-gray-500 dark:text-gray-400">إجمالي التحديثات</small>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-2xl font-bold text-blue-600">{{ collect($reports)->sum('contact_days') }}</h4>
+                    <small class="text-gray-500 dark:text-gray-400">أيام التواصل</small>
+                </div>
+                <div class="text-center">
+                    <h4 class="text-2xl font-bold text-yellow-600">{{ collect($reports)->sum('late_days') }}</h4>
+                    <small class="text-gray-500 dark:text-gray-400">أيام التأخير</small>
+                </div>
+            </div>
+        </div>
+    </div>
                     
                     <!-- Progress Overview -->
                     <div class="row">

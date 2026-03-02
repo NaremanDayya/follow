@@ -118,204 +118,202 @@
             </div>
         </div>
 
-    <div class="row">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Activity -->
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-history text-primary me-2"></i>Recent Activity
-                        </h5>
-                        <small class="text-muted">Last 10 updates</small>
-                    </div>
-                    
-                    @if($recentUpdates->count() > 0)
-                        <div class="activity-timeline">
-                            @foreach($recentUpdates as $update)
-                                <div class="activity-item mb-3">
-                                    <div class="d-flex">
-                                        <div class="flex-shrink-0">
-                                            <div class="bg-primary bg-opacity-10 rounded-circle p-2">
-                                                <i class="fas fa-{{ $update->update_type === 'call' ? 'phone' : ($update->update_type === 'email' ? 'envelope' : ($update->update_type === 'meeting' ? 'users' : 'edit')) }} text-primary small"></i>
-                                            </div>
-                                        </div>
-                                        <div class="flex-grow-1 ms-3">
-                                            <div class="d-flex justify-content-between align-items-start mb-1">
-                                                <div>
-                                                    <span class="badge bg-{{ $update->update_type === 'call' ? 'info' : ($update->update_type === 'email' ? 'success' : ($update->update_type === 'meeting' ? 'warning' : 'secondary')) }} me-1">
-                                                        {{ ucfirst($update->update_type) }}
-                                                    </span>
-                                                    <strong>{{ $update->client->name }}</strong>
-                                                </div>
-                                                <small class="text-muted">{{ $update->created_at->diffForHumans() }}</small>
-                                            </div>
-                                            <p class="mb-0 small text-muted">{{ Str::limit($update->update_content, 80) }}</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                    @else
-                        <div class="text-center py-4 text-muted">
-                            <i class="fas fa-history fa-2x mb-2"></i>
-                            <div>No recent activity</div>
-                        </div>
-                    @endif
-                </div>
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <svg class="w-5 h-5 inline ml-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    النشاط الأخير
+                </h3>
+                <small class="text-sm text-gray-500 dark:text-gray-400">آخر 10 تحديثات</small>
             </div>
+            
+            @if($recentUpdates->count() > 0)
+                <div class="space-y-3">
+                    @foreach($recentUpdates as $update)
+                        <div class="flex gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
+                            <div class="flex-shrink-0">
+                                <div class="w-10 h-10 bg-indigo-100 dark:bg-indigo-900/20 rounded-full flex items-center justify-center">
+                                    <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13 2.257a1 1 0 001.21.502l4.493 1.498a1 1 0 00.684-.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 8V5a2 2 0 012-2z" />
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div>
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                            @if($update->update_type === 'call') bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400
+                                            @elseif($update->update_type === 'email') bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400
+                                            @elseif($update->update_type === 'meeting') bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400
+                                            @else bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 @endif">
+                                            {{ ucfirst($update->update_type) }}
+                                        </span>
+                                        <strong class="text-gray-900 dark:text-white">{{ $update->client->name }}</strong>
+                                    </div>
+                                    <small class="text-gray-500 dark:text-gray-400">{{ $update->created_at->diffForHumans() }}</small>
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">{{ Str::limit($update->update_content, 80) }}</p>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <div class="text-center py-8">
+                    <svg class="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div class="text-gray-500 dark:text-gray-400">لا يوجد نشاط حديث</div>
+                </div>
+            @endif
         </div>
 
         <!-- Late Clients -->
-        <div class="col-md-6">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-exclamation-triangle text-danger me-2"></i>Late Clients
-                        </h5>
-                        <a href="{{ route('reports.late-clients') }}" class="btn btn-sm btn-outline-danger">
-                            View All
-                        </a>
-                    </div>
-                    
-                    @if($lateClients->count() > 0)
-                        <div class="late-clients-list">
-                            @foreach($lateClients as $client)
-                                <div class="late-client-item mb-3 p-3 border rounded">
-                                    <div class="d-flex justify-content-between align-items-start">
-                                        <div>
-                                            <h6 class="mb-1">{{ $client->name }}</h6>
-                                            @if($client->company)
-                                                <small class="text-muted">{{ $client->company }}</small>
-                                            @endif
-                                            <div class="mt-2">
-                                                <span class="badge bg-{{ $client->late_status === 'late' ? 'danger' : 'warning' }} me-2">
-                                                    {{ ucfirst($client->late_status) }}
-                                                </span>
-                                                <small class="text-muted">
-                                                    Last contact: {{ $client->last_contact_date?->format('M d, Y') ?: 'Never' }}
-                                                </small>
-                                            </div>
-                                        </div>
-                                        <div class="text-end">
-                                            <div class="text-muted small mb-2">
-                                                {{ $client->last_contact_date ? $client->last_contact_date->diffForHumans() : 'Never contacted' }}
-                                            </div>
-                                            <a href="{{ route('clients.show', $client) }}" class="btn btn-sm btn-outline-primary">
-                                                View
-                                            </a>
-                                        </div>
+        <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                    <svg class="w-5 h-5 inline ml-2 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    العملاء المتأخرين
+                </h3>
+                <a href="{{ route('reports.late-clients') }}" class="text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300">
+                    عرض الكل
+                </a>
+            </div>
+            
+            @if($lateClients->count() > 0)
+                <div class="space-y-3">
+                    @foreach($lateClients as $client)
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 dark:text-white">{{ $client->name }}</h4>
+                                    @if($client->company)
+                                        <small class="text-gray-600 dark:text-gray-400">{{ $client->company }}</small>
+                                    @endif
+                                    <div class="mt-2">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                            @if($client->late_status === 'late') bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400
+                                            @else bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400 @endif">
+                                            {{ ucfirst($client->late_status) }}
+                                        </span>
+                                        <small class="text-gray-500 dark:text-gray-400 mr-2">
+                                            آخر تواصل: {{ $client->last_contact_date?->format('M d, Y') ?: 'لم يتم' }}
+                                        </small>
                                     </div>
                                 </div>
-                            @endforeach
+                                <div class="text-left">
+                                    <div class="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                                        {{ $client->last_contact_date ? $client->last_contact_date->diffForHumans() : 'لم يتم التواصل' }}
+                                    </div>
+                                    <a href="{{ route('clients.show', $client) }}" class="inline-flex items-center px-3 py-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg transition-colors duration-200">
+                                        عرض
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    @else
-                        <div class="text-center py-4 text-muted">
-                            <i class="fas fa-check-circle fa-2x mb-2 text-success"></i>
-                            <div>No late clients!</div>
-                            <small>All clients are up to date</small>
-                        </div>
-                    @endif
+                    @endforeach
                 </div>
-            </div>
+            @else
+                <div class="text-center py-8">
+                    <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <div class="text-gray-900 dark:text-white font-medium">لا يوجد عملاء متأخرين!</div>
+                    <small class="text-gray-500 dark:text-gray-400">جميع العملاء محدثون</small>
+                </div>
+            @endif
         </div>
     </div>
 
     <!-- Upcoming Follow-ups -->
-    <div class="row">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-4">
-                        <h5 class="card-title mb-0">
-                            <i class="fas fa-calendar-alt text-info me-2"></i>Upcoming Follow-ups
-                        </h5>
-                        <small class="text-muted">Next 7 days</small>
-                    </div>
+    <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                <svg class="w-5 h-5 inline ml-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                المتابعات القادمة
+            </h3>
+            <small class="text-sm text-gray-500 dark:text-gray-400">آخر 7 أيام</small>
+        </div>
                     
                     @if($upcomingFollowups->count() > 0)
-                        <div class="row">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($upcomingFollowups as $client)
-                                <div class="col-md-6 col-lg-4 mb-3">
-                                    <div class="card border-left-info border-left-3">
-                                        <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-start mb-2">
-                                                <div>
-                                                    <h6 class="mb-1">{{ $client->name }}</h6>
-                                                    @if($client->assignedEmployee)
-                                                        <small class="text-muted">{{ $client->assignedEmployee->name }}</small>
-                                                    @endif
-                                                </div>
-                                                <div class="text-end">
-                                                    <div class="badge bg-info">
-                                                        {{ $client->next_followup_date->format('M d') }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <small class="text-muted">
-                                                    {{ $client->next_followup_date->diffForHumans() }}
-                                                </small>
-                                                <div>
-                                                    <a href="{{ route('clients.chat', $client) }}" class="btn btn-sm btn-outline-success me-1">
-                                                        <i class="fas fa-comment"></i>
-                                                    </a>
-                                                    <a href="{{ route('clients.show', $client) }}" class="btn btn-sm btn-outline-primary">
-                                                        <i class="fas fa-eye"></i>
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
+                    <div class="border-l-4 border-l-blue-500 bg-blue-50 dark:bg-blue-900/20 p-4 rounded-xl">
+                                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="font-semibold text-gray-900 dark:text-white">{{ $client->name }}</h4>
+                            @if($client->assignedEmployee)
+                                <small class="text-gray-600 dark:text-gray-400">{{ $client->assignedEmployee->name }}</small>
+                            @endif
                         </div>
+                                                <div class="flex items-center justify-between">
+                            <small class="text-gray-500 dark:text-gray-400">
+                                {{ $client->next_followup_date->diffForHumans() }}
+                            </small>
+                            <div class="flex gap-2">
+                                <a href="{{ route('clients.chat', $client) }}" class="p-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors duration-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8c0 1.574-.512 3.042-1.395 3.72l1.395 3.72C19.417 19.823 21 17.418 21 12z" />
+                                    </svg>
+                                </a>
+                                <a href="{{ route('clients.show', $client) }}" class="p-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors duration-200">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                     @else
-                        <div class="text-center py-4 text-muted">
-                            <i class="fas fa-calendar-check fa-2x mb-2"></i>
-                            <div>No upcoming follow-ups</div>
-                            <small>No follow-ups scheduled for the next 7 days</small>
-                        </div>
-                    @endif
-                </div>
+            <div class="text-center py-8">
+                <svg class="w-16 h-16 text-gray-300 dark:text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <div class="text-gray-500 dark:text-gray-400">لا توجد متابعات قادمة</div>
+                <small class="text-gray-400 dark:text-gray-500">لا توجد متابعات مجدولة لآخر 7 أيام</small>
             </div>
-        </div>
+        @endif
     </div>
 
     <!-- Quick Actions -->
-    <div class="row mt-4">
-        <div class="col-12">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">
-                        <i class="fas fa-bolt text-warning me-2"></i>Quick Actions
-                    </h5>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-outline-primary w-100 mb-2" onclick="exportReport('pdf')">
-                                <i class="fas fa-file-pdf me-2"></i>Export PDF Report
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-outline-success w-100 mb-2" onclick="exportReport('excel')">
-                                <i class="fas fa-file-excel me-2"></i>Export Excel Report
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-outline-warning w-100 mb-2" onclick="sendReminders()">
-                                <i class="fas fa-bell me-2"></i>Send Reminders
-                            </button>
-                        </div>
-                        <div class="col-md-3">
-                            <button type="button" class="btn btn-outline-info w-100 mb-2" onclick="refreshDashboard()">
-                                <i class="fas fa-sync-alt me-2"></i>Refresh Data
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+            <svg class="w-5 h-5 inline ml-2 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7m0 0v-7l9 7v-7m-11 7h18" />
+            </svg>
+            إجراءات سريعة
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <button type="button" class="flex items-center justify-center px-4 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors duration-200" onclick="exportReport('pdf')">
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                تصدير تقرير PDF
+            </button>
+            <button type="button" class="flex items-center justify-center px-4 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors duration-200" onclick="exportReport('excel')">
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v1a1 1 0 001 1h4a1 1 0 001-1v-1m3-2V8a2 2 0 00-2-2H8a2 2 0 00-2 2v8a2 2 0 002 2h6z" />
+                </svg>
+                تصدير تقرير Excel
+            </button>
+            <button type="button" class="flex items-center justify-center px-4 py-3 bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-200 dark:hover:bg-yellow-900/30 rounded-xl transition-colors duration-200" onclick="sendReminders()">
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-5 5v-5z" />
+                </svg>
+                إرسال تذكيرات
+            </button>
+            <button type="button" class="flex items-center justify-center px-4 py-3 border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-xl transition-colors duration-200" onclick="refreshDashboard()">
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m0 0v5m0 0h5.418M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+                تحديث البيانات
+            </button>
         </div>
     </div>
 </div>

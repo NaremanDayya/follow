@@ -81,7 +81,7 @@
                         ابدأ محادثة مع العملاء لرؤيتها هنا
                         </p>
                     </div>
-                @endforeach
+                @endforelse
             </div>
         </div>
 
