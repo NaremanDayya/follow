@@ -6,7 +6,8 @@
                 المحادثات
             </h2>
         </div>
-    </x-slot>
+   </x-slot>
+@section('content')
 
     <div class="h-[calc(100vh-8rem)] flex">
         <!-- Chat List Sidebar -->
@@ -101,4 +102,5 @@
             </div>
         </div>
     </div>
+   @endsection
 </x-app-layout>

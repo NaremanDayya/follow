@@ -28,7 +28,8 @@
                 </a>
             </div>
         </div>
-    </x-slot>
+   </x-slot>
+@section('content')
 
     <div class="space-y-6">
         <!-- Statistics Overview -->
@@ -130,7 +131,7 @@
                 </h3>
                 <small class="text-sm text-gray-500 dark:text-gray-400">آخر 10 تحديثات</small>
             </div>
-            
+
             @if($recentUpdates->count() > 0)
                 <div class="space-y-3">
                     @foreach($recentUpdates as $update)
@@ -145,7 +146,7 @@
                             <div class="flex-1">
                                 <div class="flex items-center justify-between mb-1">
                                     <div>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                             @if($update->update_type === 'call') bg-blue-100 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400
                                             @elseif($update->update_type === 'email') bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400
                                             @elseif($update->update_type === 'meeting') bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400
@@ -184,7 +185,7 @@
                     عرض الكل
                 </a>
             </div>
-            
+
             @if($lateClients->count() > 0)
                 <div class="space-y-3">
                     @foreach($lateClients as $client)
@@ -196,7 +197,7 @@
                                         <small class="text-gray-600 dark:text-gray-400">{{ $client->company }}</small>
                                     @endif
                                     <div class="mt-2">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                             @if($client->late_status === 'late') bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400
                                             @else bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400 @endif">
                                             {{ ucfirst($client->late_status) }}
@@ -241,7 +242,7 @@
             </h3>
             <small class="text-sm text-gray-500 dark:text-gray-400">آخر 7 أيام</small>
         </div>
-                    
+
                     @if($upcomingFollowups->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                             @foreach($upcomingFollowups as $client)
@@ -364,7 +365,7 @@ function showAlert(type, message) {
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     document.body.appendChild(alertDiv);
-    
+
     setTimeout(() => {
         if (alertDiv.parentNode) {
             alertDiv.parentNode.removeChild(alertDiv);
@@ -386,11 +387,11 @@ setInterval(() => {
             // Update statistics without full page reload
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
-            
+
             // Update stat cards
             const statCards = doc.querySelectorAll('.card-body h4');
             const currentCards = document.querySelectorAll('.card-body h4');
-            
+
             currentCards.forEach((card, index) => {
                 if (statCards[index]) {
                     card.textContent = statCards[index].textContent;
