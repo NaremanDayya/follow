@@ -71,7 +71,7 @@ new class extends Component
                         <button class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 text-sm leading-4 font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200">
                             <div class="flex items-center gap-2">
                                 <div class="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                                    {{ substr(auth()->user()->name, 0, 1) }}
+                                    {{ mb_substr(auth()->user()->name, 0, 1, 'UTF-8') }}
                                 </div>
                                 <div x-data="{{ json_encode(['name' => auth()->user()->name]) }}" x-text="name" x-on:profile-updated.window="name = $event.detail.name" class="font-medium"></div>
                             </div>
