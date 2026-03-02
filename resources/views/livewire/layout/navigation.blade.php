@@ -66,7 +66,7 @@ new class extends Component
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+                <x-dropdown align="right" width="56">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-gray-200 dark:border-gray-700 text-sm leading-4 font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200">
                             <div class="flex items-center gap-2">
@@ -85,26 +85,37 @@ new class extends Component
                     </x-slot>
 
                     <x-slot name="content">
-                        <div class="block px-4 py-2 text-xs text-gray-700 dark:text-gray-300 uppercase tracking-wider font-semibold">
-                            {{ auth()->user()->name }}
+                        <!-- User Info Header -->
+                        <div class="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    {{ mb_substr(auth()->user()->name, 0, 1, 'UTF-8') }}
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white">
+                                        {{ auth()->user()->name }}
+                                    </p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">
+                                        {{ auth()->user()->email }}
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="border-t border-gray-100 dark:border-gray-700"></div>
-                        
+                        <!-- Menu Items -->
                         <x-dropdown-link :href="route('profile')" wire:navigate>
                             <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
-                            {{ __('الملف الشخصي') }}
+                            الملف الشخصي
                         </x-dropdown-link>
 
-                        <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
                                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                                 </svg>
-                                {{ __('تسجيل الخروج') }}
+                                تسجيل الخروج
                             </x-dropdown-link>
                         </button>
                     </x-slot>
