@@ -78,7 +78,7 @@ new class extends Component
                     <div class="text-sm font-bold mb-1 opacity-70">ساعة عمل</div>
                 </div>
             </div>
-            
+
             <!-- Stat Card 2 -->
             <div class="bg-white dark:bg-gray-800 p-8 rounded-[2.5rem] shadow-sm border border-gray-100 dark:border-gray-700 relative overflow-hidden group">
                 <h3 class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4 italic">المهام المكتملة</h3>
@@ -102,8 +102,8 @@ new class extends Component
     <!-- Logs Table/List -->
     <div class="space-y-6">
         <h3 class="text-xl font-black text-gray-900 dark:text-white flex items-center gap-3">
-             <span class="w-2 h-8 bg-indigo-600 rounded-full"></span>
-             سجل النشاط اليومي
+            <span class="w-2 h-8 bg-indigo-600 rounded-full"></span>
+            سجل النشاط اليومي
         </h3>
 
         <div class="grid gap-6">
@@ -145,7 +145,7 @@ new class extends Component
                             <!-- Comments Thread -->
                             <div class="mt-8 space-y-6">
                                 <h6 class="text-[10px] font-black text-gray-400 uppercase tracking-widest border-b border-gray-50 dark:border-gray-700 pb-2">الملاحظات والتعليقات</h6>
-                                
+
                                 @foreach($log->comments as $comment)
                                     <div class="flex gap-4">
                                         <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center text-amber-600 shrink-0 font-black text-xs">
