@@ -87,12 +87,22 @@ class ClientController extends Controller
 
     public function create()
     {
+        // Only employees can create clients
+        if (!Auth::user()->isEmployee()) {
+            abort(403, 'Only employees can create clients.');
+        }
+        
         $employees = User::employees()->get();
         return view('clients.create', compact('employees'));
     }
 
     public function store(Request $request)
     {
+        // Only employees can create clients
+        if (!Auth::user()->isEmployee()) {
+            abort(403, 'Only employees can create clients.');
+        }
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'phone' => 'nullable|string|max:20',

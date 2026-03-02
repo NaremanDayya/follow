@@ -1,96 +1,87 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container-fluid py-4">
+<div class="space-y-6">
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <div>
-            <h1 class="h3 mb-0">Create New Client</h1>
-            <p class="text-muted mb-0">Add a new client to the system</p>
-        </div>
-        <div>
-            <a href="{{ route('clients.index') }}" class="btn btn-outline-secondary">
-                <i class="fas fa-arrow-left me-2"></i>Back to Clients
+    <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+        <div class="flex items-center justify-between">
+            <div>
+                <h1 class="text-2xl font-black text-gray-900 dark:text-white">إنشاء عميل جديد</h1>
+                <p class="text-gray-600 dark:text-gray-400 mt-1">إضافة عميل جديد إلى نظام المتابعة</p>
+            </div>
+            <a href="{{ route('clients.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 text-sm font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-all duration-200">
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                </svg>
+                العودة للعملاء
             </a>
         </div>
     </div>
 
     <!-- Form -->
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <form method="POST" action="{{ route('clients.store') }}">
-                        @csrf
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+            <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+                <form method="POST" action="{{ route('clients.store') }}">
+                    @csrf
 
-                        <!-- Basic Information -->
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <h5 class="mb-3">Basic Information</h5>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="name" class="form-label">Client Name *</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" 
+                    <!-- Basic Information -->
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">المعلومات الأساسية</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">اسم العميل *</label>
+                                    <input type="text" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('name') border-red-500 @enderror" 
                                            id="name" name="name" value="{{ old('name') }}" required>
                                     @error('name')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="company" class="form-label">Company</label>
-                                    <input type="text" class="form-control @error('company') is-invalid @enderror" 
+                                <div>
+                                    <label for="company" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">الشركة</label>
+                                    <input type="text" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('company') border-red-500 @enderror" 
                                            id="company" name="company" value="{{ old('company') }}">
                                     @error('company')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                                <div>
+                                    <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">البريد الإلكتروني</label>
+                                    <input type="email" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('email') border-red-500 @enderror" 
                                            id="email" name="email" value="{{ old('email') }}">
                                     @error('email')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="phone" class="form-label">Phone</label>
-                                    <input type="tel" class="form-control @error('phone') is-invalid @enderror" 
+                                <div>
+                                    <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">رقم الهاتف</label>
+                                    <input type="tel" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('phone') border-red-500 @enderror" 
                                            id="phone" name="phone" value="{{ old('phone') }}">
                                     @error('phone')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="mb-3">
-                                    <label for="address" class="form-label">Address</label>
-                                    <textarea class="form-control @error('address') is-invalid @enderror" 
+                                <div class="md:col-span-2">
+                                    <label for="address" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">العنوان</label>
+                                    <textarea class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('address') border-red-500 @enderror" 
                                               id="address" name="address" rows="3">{{ old('address') }}</textarea>
                                     @error('address')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
                         <!-- Assignment & Status -->
-                        <div class="row mb-4">
-                            <div class="col-12">
-                                <h5 class="mb-3">Assignment & Status</h5>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="assigned_employee_id" class="form-label">Assigned Employee</label>
-                                    <select class="form-select @error('assigned_employee_id') is-invalid @enderror" 
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">التخصيص والحالة</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="assigned_employee_id" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">الموظف المسؤول</label>
+                                    <select class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('assigned_employee_id') border-red-500 @enderror" 
                                             id="assigned_employee_id" name="assigned_employee_id">
-                                        <option value="">Select Employee</option>
+                                        <option value="">اختر الموظف</option>
                                         @foreach($employees as $employee)
                                             <option value="{{ $employee->id }}" 
                                                     {{ old('assigned_employee_id') == $employee->id ? 'selected' : '' }}>
@@ -99,92 +90,107 @@
                                         @endforeach
                                     </select>
                                     @error('assigned_employee_id')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="status" class="form-label">Status</label>
-                                    <select class="form-select @error('status') is-invalid @enderror" 
+                                <div>
+                                    <label for="status" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">الحالة *</label>
+                                    <select class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('status') border-red-500 @enderror" 
                                             id="status" name="status" required>
-                                        <option value="">Select Status</option>
-                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>Active</option>
-                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
-                                        <option value="prospect" {{ old('status') == 'prospect' ? 'selected' : '' }}>Prospect</option>
+                                        <option value="">اختر الحالة</option>
+                                        <option value="active" {{ old('status') == 'active' ? 'selected' : '' }}>نشط</option>
+                                        <option value="inactive" {{ old('status') == 'inactive' ? 'selected' : '' }}>غير نشط</option>
+                                        <option value="prospect" {{ old('status') == 'prospect' ? 'selected' : '' }}>محتمل</option>
                                     </select>
                                     @error('status')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="next_followup_date" class="form-label">Next Follow-up Date</label>
-                                    <input type="date" class="form-control @error('next_followup_date') is-invalid @enderror" 
+                                <div>
+                                    <label for="next_followup_date" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">تاريخ المتابعة القادمة</label>
+                                    <input type="date" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white @error('next_followup_date') border-red-500 @enderror" 
                                            id="next_followup_date" name="next_followup_date" 
                                            value="{{ old('next_followup_date') }}" 
                                            min="{{ now()->format('Y-m-d') }}">
                                     @error('next_followup_date')
-                                        <div class="invalid-feedback">{{ $message }}</div>
+                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                     @enderror
                                 </div>
                             </div>
                         </div>
 
                         <!-- Submit Buttons -->
-                        <div class="d-flex justify-content-between">
-                            <a href="{{ route('clients.index') }}" class="btn btn-outline-secondary">
-                                <i class="fas fa-times me-2"></i>Cancel
+                        <div class="flex items-center justify-between pt-6 border-t border-gray-100 dark:border-gray-800">
+                            <a href="{{ route('clients.index') }}" class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 text-sm font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/70 transition-all duration-200">
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                                إلغاء
                             </a>
-                            <div>
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fas fa-save me-2"></i>Create Client
-                                </button>
-                            </div>
+                            <button type="submit" class="inline-flex items-center px-6 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/25 transition-all duration-300 transform hover:-translate-y-0.5">
+                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                </svg>
+                                إنشاء العميل
+                            </button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
 
         <!-- Sidebar Information -->
-        <div class="col-md-4">
-            <div class="card border-0 shadow-sm mb-4">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">
-                        <i class="fas fa-info-circle text-primary me-2"></i>Information
-                    </h5>
-                    <p class="text-muted small mb-3">
-                        When you create a client, a chat thread will automatically be created for tracking all communications and follow-ups.
+        <div class="lg:col-span-1">
+            <div class="space-y-6">
+                <div class="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl border border-indigo-100 dark:border-indigo-800/50 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                        <svg class="w-5 h-5 inline ml-2 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        معلومات هامة
+                    </h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                        عند إنشاء عميل جديد، سيتم تلقائياً إنشاء محادثة خاصة به لتتبع جميع التواصلات والمتابعات.
                     </p>
-                    <div class="alert alert-info small">
-                        <i class="fas fa-lightbulb me-2"></i>
-                        <strong>Tip:</strong> Assigning an employee will give them access to manage this client's follow-ups and chat.
+                </div>
+
+                <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <svg class="w-5 h-5 inline ml-2 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                        نصائح سريعة
+                    </h3>
+                    <div class="space-y-3">
+                        <div class="flex items-start gap-3">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">تخصيص موظف سيمكنه من إدارة متابعة العميل والمحادثات</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">تحديد تاريخ المتابعة القادمة يساعد في التنظيم</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="w-2 h-2 bg-indigo-500 rounded-full mt-2 flex-shrink-0"></div>
+                            <p class="text-sm text-gray-600 dark:text-gray-400">يمكنك تعديل جميع المعلومات لاحقاً من صفحة العميل</p>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="card border-0 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title mb-3">
-                        <i class="fas fa-question-circle text-secondary me-2"></i>Help
-                    </h5>
-                    <div class="small">
-                        <div class="mb-2">
-                            <strong>Status Types:</strong>
-                            <ul class="list-unstyled ms-3">
-                                <li><span class="badge bg-success me-1">Active</span> Regular client</li>
-                                <li><span class="badge bg-warning me-1">Prospect</span> Potential client</li>
-                                <li><span class="badge bg-danger me-1">Inactive</span> Not currently active</li>
-                            </ul>
+                <div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-100 dark:border-gray-800 p-6 shadow-sm">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">أنواع الحالات</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400">نشط</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">عميل نشط</span>
                         </div>
-                        <div>
-                            <strong>Required Fields:</strong>
-                            <ul class="list-unstyled ms-3">
-                                <li>• Client Name</li>
-                                <li>• Status</li>
-                            </ul>
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400">محتمل</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">عميل محتمل</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400">غير نشط</span>
+                            <span class="text-sm text-gray-600 dark:text-gray-400">عميل غير نشط</span>
                         </div>
                     </div>
                 </div>

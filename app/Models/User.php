@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function isEmployee(): bool
     {
-        return $this->role === 'employee';
+        return $this->role === 'developer';
     }
 
     public function canManageClients(): bool
@@ -90,7 +90,7 @@ class User extends Authenticatable
 
     public function scopeEmployees($query)
     {
-        return $query->where('role', 'employee');
+        return $query->where('role', 'developer');
     }
 
     public function scopeAdmins($query)

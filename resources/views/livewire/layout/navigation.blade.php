@@ -34,21 +34,44 @@ new class extends Component
                 </div>
 
                 <div class="hidden space-x-1 sm:-my-px sm:ms-10 sm:flex items-center justify-center flex-1">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
-                        {{ 'لوحة التحكم' }}
-                    </x-nav-link>
+                    <!-- Left side: Create Client Button (for employees only) -->
+                    @if(auth()->user()->isEmployee())
+                        <a href="{{ route('clients.create') }}" wire:navigate class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/25 transition-all duration-300 transform hover:-translate-y-0.5 ml-4">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                            </svg>
+                            عميل جديد
+                        </a>
+                    @endif
+                    
+                    <!-- Center: Navigation Tabs -->
+                    <div class="flex items-center space-x-1">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" wire:navigate>
+                            {{ 'لوحة التحكم' }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" wire:navigate>
-                        {{ 'العملاء' }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('clients.index')" :active="request()->routeIs('clients.*')" wire:navigate>
+                            {{ 'العملاء' }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.*')" wire:navigate>
-                        {{ 'المحادثات' }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('chat.index')" :active="request()->routeIs('chat.*')" wire:navigate>
+                            {{ 'المحادثات' }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('reports.dashboard')" :active="request()->routeIs('reports.*')" wire:navigate>
-                        {{ 'التقارير' }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('reports.dashboard')" :active="request()->routeIs('reports.*')" wire:navigate>
+                            {{ 'التقارير' }}
+                        </x-nav-link>
+                    </div>
+                    
+                    <!-- Right side: Client Management (for admins/managers) -->
+                    @if(auth()->user()->canManageClients())
+                        <a href="{{ route('clients.index') }}" wire:navigate class="inline-flex items-center px-4 py-2 border border-gray-200 dark:border-gray-700 text-sm font-medium rounded-xl text-gray-700 dark:text-gray-300 bg-white/50 dark:bg-gray-800/50 hover:bg-gray-50 dark:hover:bg-gray-800/70 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all duration-200 mr-4">
+                            <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                            </svg>
+                            إدارة العملاء
+                        </a>
+                    @endif
                 </div>
             </div>
 
