@@ -9,7 +9,7 @@
             </div>
         </div>
     </x-slot>
-
+@section('content')
     <div class="space-y-6">
         <!-- Statistics Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
@@ -105,7 +105,7 @@
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">البحث</label>
                     <input type="text" name="search" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white" placeholder="الاسم، البريد، الشركة..." value="{{ request('search') }}">
                 </div>
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">الموظف</label>
                     <select name="employee_id" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
@@ -117,7 +117,7 @@
                         @endforeach
                     </select>
                 </div>
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">الحالة</label>
                     <select name="status" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
@@ -127,7 +127,7 @@
                         <option value="prospect" {{ request('status') == 'prospect' ? 'selected' : '' }}>محتمل</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">حالة التأخير</label>
                     <select name="late_status" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
@@ -136,7 +136,7 @@
                         <option value="late" {{ request('late_status') == 'late' ? 'selected' : '' }}>متأخر</option>
                     </select>
                 </div>
-                
+
                 <div>
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">رسائل غير مقروءة</label>
                     <select name="has_unread" class="w-full px-4 py-2 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 bg-white dark:bg-gray-800 text-gray-900 dark:text-white">
@@ -144,7 +144,7 @@
                         <option value="true" {{ request('has_unread') === 'true' ? 'selected' : '' }}>يوجد غير مقروء</option>
                     </select>
                 </div>
-                
+
                 <div class="flex items-end">
                     <button type="submit" class="w-full px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-medium rounded-xl transition-colors duration-200">
                         فلترة
@@ -238,7 +238,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                         @if($client->status === 'active') bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-400
                                         @elseif($client->status === 'inactive') bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-400
                                         @else bg-yellow-100 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-400 @endif">
@@ -323,7 +323,7 @@
             @endif
         </div>
     </div>
-
+    @endsection
 </x-app-layout>
 
 <script>

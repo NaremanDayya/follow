@@ -13,8 +13,8 @@
         <div class="w-80 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-700 overflow-y-auto">
             <div class="p-4 border-b border-gray-100 dark:border-gray-800">
                 <div class="relative">
-                    <input type="text" 
-                           placeholder="البحث عن محادثة..." 
+                    <input type="text"
+                           placeholder="البحث عن محادثة..."
                            class="w-full px-4 py-2 pr-10 bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 text-sm">
                     <svg class="absolute right-3 top-2.5 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -24,19 +24,19 @@
 
             <div class="divide-y divide-gray-100 dark:divide-gray-800">
                 @foreach($clients as $client)
-                    <a href="{{ route('clients.chat', $client) }}" 
+                    <a href="{{ route('clients.chat', $client) }}"
                        class="block p-4 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors duration-150 relative">
                         @if($client->unread_count > 0)
                             <span class="absolute top-4 right-4 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold">
                                 {{ $client->unread_count }}
                             </span>
                         @endif
-                        
+
                         <div class="flex items-start gap-3">
                             <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
                                 {{ substr($client->name, 0, 1) }}
                             </div>
-                            
+
                             <div class="flex-1 min-w-0">
                                 <div class="flex items-center justify-between mb-1">
                                     <h3 class="font-semibold text-gray-900 dark:text-white truncate">
@@ -48,13 +48,13 @@
                                         </span>
                                     @endif
                                 </div>
-                                
+
                                 @if($client->company)
                                     <p class="text-sm text-gray-600 dark:text-gray-400 truncate">
                                         {{ $client->company }}
                                     </p>
                                 @endif
-                                
+
                                 @if($client->last_message)
                                     <p class="text-sm text-gray-500 dark:text-gray-400 truncate mt-1">
                                         {{ Str::limit($client->last_message, 50) }}
@@ -84,7 +84,6 @@
                 @endforelse
             </div>
         </div>
-
         <!-- Chat Area (Empty state) -->
         <div class="flex-1 flex items-center justify-center bg-gray-50 dark:bg-gray-950">
             <div class="text-center">
